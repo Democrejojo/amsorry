@@ -229,8 +229,8 @@
             
             <!-- Music Player Button (Youtube API) -->
             <div style="text-align:center; margin: 20px 0;">
-                <button onclick="playMusic()" id="musicBtn" class="btn btn-outline" style="font-size: 0.9rem; padding: 8px 24px; border-radius: 50px;">
-                    💚 เปิดเพลงของเรา
+                <button onclick="playMusic()" id="musicBtn" class="btn btn-outline" style="font-size: 0.9rem; padding: 12px 24px; border-radius: 50px; white-space: normal; height: auto; line-height: 1.5; max-width: 100%;">
+                    💚 เปิดเพลง เค้ารู้ว่าเธอชอบฟัง Yes'sir day เค้าเลยไปฟังตามอันนี้ก็ความหมายดี อิอิ บรอคโคลี่
                 </button>
                 <div id="player" style="display:none;"></div>
             </div>
@@ -252,7 +252,7 @@
                 <p>เค้ายอมรับเลยว่าช่วงหลังมานี้ เราทะเลาะกันบ่อยมาก</p>
                 <p>รู้ว่าเธอเหนื่อย ทั้งเรื่องเรียน เรื่องที่บ้าน</p>
                 <p>เค้าไม่อยากเป็นอีกเรื่องที่ทำให้เธอต้องหนักใจเลย</p>
-                <p class="highlight" style="margin-top: 20px;">"ขอบคุณนะที่ยังอยู่ตรงนี้"</p>
+                <p class="highlight" style="margin-top: 20px;">"ขอบคุณนะที่ยังอยู่ตรงนี้ ขอบคุณนะที่ใจเย็นกับเค้าเรื่องนี้เสมอเลย เค้ารักเทอมากนะ"</p>
             </div>
         </div>
     </section>
@@ -376,12 +376,12 @@
             player = new YT.Player('player', {
                 height: '0',
                 width: '0',
-                videoId: '16-wFAbvQiU&list=RD16-wFAbvQiU&start_radio=1', // Yes'sir days - รักเธอคนเดียวเท่านั้น
+                videoId: 'OAZLe6RJ5Uk', // Yes'sir days - รักเธอคนเดียวเท่านั้น
                 playerVars: {
                     'autoplay': 0,
                     'controls': 0,
                     'loop': 1,
-                    'playlist': '16-wFAbvQiU&list=RD16-wFAbvQiU&start_radio=1' // Loop playlist
+                    'playlist': 'OAZLe6RJ5Uk' // Loop playlist
                 },
                 events: {
                     'onReady': onPlayerReady
@@ -418,6 +418,4 @@
 
     </script>
 </body>
-
 </html>
-
