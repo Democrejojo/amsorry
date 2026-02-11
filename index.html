@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Venus 💚</title>
+    <!-- Google Fonts: Prompt for modern Thai typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        :root {
+            /* Palette: Matcha & Sage Green */
+            --bg-color: #fdfdfa;
+            --text-main: #4a5d4e;
+            --text-light: #7a8c7e;
+            --green-primary: #88b08d;
+            --green-soft: #cdeac0;
+            --green-dark: #556b58;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --shadow: 0 10px 30px -10px rgba(136, 176, 141, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Floating Hearts Animation */
+        .heart-bg {
+            position: fixed;
+            bottom: -50px;
+            color: var(--green-primary);
+            opacity: 0;
+            z-index: -1;
+            pointer-events: none;
+            animation: floatUp linear forwards;
+            font-size: 20px;
+            filter: blur(1px);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.4;
+            }
+            80% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Layout */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        /* Typography */
+        h1 { font-size: 2.5rem; font-weight: 600; color: var(--green-dark); margin-bottom: 1rem; }
+        h2 { font-size: 1.8rem; font-weight: 500; margin-bottom: 1.5rem; color: var(--green-dark); }
+        p { font-size: 1.1rem; margin-bottom: 1.2rem; color: var(--text-main); font-weight: 300; }
+        .highlight { color: var(--green-primary); font-weight: 500; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background-color: var(--green-primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: 'Prompt', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(136, 176, 141, 0.4);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background-color: var(--green-dark);
+            box-shadow: 0 6px 20px rgba(136, 176, 141, 0.6);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--green-primary);
+            color: var(--green-primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--green-primary);
+            color: white;
+        }
+
+        /* Animation Classes */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            will-change: opacity, visibility;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Section Specifics */
+        .card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.5);
+            width: 100%;
+        }
+
+        .promise-list {
+            list-style: none;
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .promise-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .promise-icon {
+            color: var(--green-primary);
+            min-width: 24px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .big-heart {
+            font-size: 80px;
+            color: var(--green-primary);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Section 1: Intro -->
+    <section id="intro">
+        <div class="container fade-in-section">
+            <h1>ถึงวีนัส จากนางน้อย <span style="color:var(--green-primary)">💚</span></h1>
+            <p style="font-size: 1.2rem; opacity: 0.8;">เค้ามีบางอย่างที่อยากพูดกับเธอ...</p>
+            
+            <!-- Music Player Button (Youtube API) -->
+            <div style="text-align:center; margin: 20px 0;">
+                <button onclick="playMusic()" id="musicBtn" class="btn btn-outline" style="font-size: 0.9rem; padding: 8px 24px; border-radius: 50px;">
+                    💚 เปิดเพลงของเรา
+                </button>
+                <div id="player" style="display:none;"></div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button onclick="scrollToSection('apology')" class="btn">
+                    กดอ่านนะ <i data-lucide="arrow-down" style="width: 18px;"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Apology -->
+    <section id="apology">
+        <div class="container fade-in-section">
+            <div class="card">
+                <i data-lucide="message-circle-heart" style="color: var(--green-primary); width: 40px; height: 40px; margin-bottom: 20px;"></i>
+                <h2>ขอโทษนะ...</h2>
+                <p>เค้ายอมรับเลยว่าช่วงหลังมานี้ เราทะเลาะกันบ่อยมาก</p>
+                <p>รู้ว่าเธอเหนื่อย ทั้งเรื่องเรียน เรื่องที่บ้าน</p>
+                <p>เค้าไม่อยากเป็นอีกเรื่องที่ทำให้เธอต้องหนักใจเลย</p>
+                <p class="highlight" style="margin-top: 20px;">"ขอบคุณนะที่ยังอยู่ตรงนี้"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: True Feelings (Green Tea Metaphor) -->
+    <section id="feelings">
+        <div class="container fade-in-section">
+            <i data-lucide="coffee" style="color: var(--green-dark); width: 50px; height: 50px; margin-bottom: 20px;"></i>
+            <h2>ความตั้งใจของเค้า</h2>
+            <p>ที่ผ่านมาที่งอแง ตอนนี้เค้ากำลังพยายามโตขึ้นนะ</p>
+            <p>เค้าอยากเป็นที่พักใจให้เธอ ในวันที่โลกมันใจร้าย</p>
+            <div style="margin: 30px 0; padding: 20px; border-left: 4px solid var(--green-primary); background: rgba(255,255,255,0.5); text-align: left;">
+                <p style="margin:0; font-style: italic;">
+                    "เค้าอยากเป็นเหมือน<span style="color: var(--green-dark); font-weight: 500;">ชาเขียว</span>แก้วโปรดของเธอ<br>
+                    ไม่อร่อยจนเลี่ยน ไม่จืดจางจนน่าเบื่อ<br>
+                    แต่เย็นชื่นใจ... ดูดเมื่อไหร่ก็สบายใจ หายเหนื่อย"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Promises -->
+    <section id="promises">
+        <div class="container fade-in-section">
+            <h2>เค้าสัญญา</h2>
+            <div class="card" style="text-align: left;">
+                <ul class="promise-list">
+                    <li>
+                        <div class="promise-icon"><i data-lucide="check-circle-2"></i></div>
+                        <span>จะคิดให้มากขึ้น ไม่ใช้อารมณ์นำเพียงชั่วขณะ</span>
+                    </li>
+                    <li>
+                        <div class="promise-icon"><i data-lucide="check-circle-2"></i></div>
+                        <span>ถ้าเริ่มจะนอยอีก จะหยุด... แล้วหายใจลึกๆ ก่อน</span>
+                    </li>
+                    <li>
+                        <div class="promise-icon"><i data-lucide="check-circle-2"></i></div>
+                        <span>จะปรับตัวนะเค้าอยากรักษาเธอไว้อย่างดีที่สุด</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Special -->
+    <section id="special">
+        <div class="container fade-in-section">
+            <div style="background-color: #e8f5e9; padding: 40px 20px; border-radius: 20px; box-shadow: inset 0 0 20px rgba(136, 176, 141, 0.1);">
+                <div style="margin-top: 20px;">
+                    <button class="btn" onclick="showHug()">
+                        กอดได้ไหม <i data-lucide="heart-handshake" style="margin-left:8px; width: 18px;"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <p style="margin-top: 50px; font-size: 0.9rem; color: #999;">
+                For you, Venus.<br>
+                Always.
+            </p>
+        </div>
+    </section>
+
+    <!-- Modal Hug -->
+    <div class="modal-overlay" id="hugModal" onclick="closeHug()">
+        <div class="modal-content">
+            <div class="big-heart">💚</div>
+            <h2 style="margin-top: 20px; color: var(--green-dark);">กอดดดดดด~</h2>
+            <p>จุ้บๆงับ</p>
+            <p style="font-size: 0.9rem; margin-top: 10px; color: #888;">(แตะเพื่อปิด)</p>
+        </div>
+    </div>
+
+    <!-- YouTube IFrame API Script -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. FLOATING HEARTS GENERATOR
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '💚'; 
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 6 + 6 + 's';
+            heart.style.fontSize = Math.random() * 15 + 10 + 'px'; 
+            heart.style.opacity = Math.random() * 0.5 + 0.1;
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 12000);
+        }
+        setInterval(createHeart, 800);
+
+        // 2. SCROLL ANIMATION
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 3. YOUTUBE MUSIC PLAYER LOGIC
+        let player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'OAZLe6RJ5Uk', // Yes'sir days - รักเธอคนเดียวเท่านั้น
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'loop': 1,
+                    'playlist': 'OAZLe6RJ5Uk' // Loop playlist
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player is ready, waiting for click
+            console.log("Player Ready");
+        }
+
+        function playMusic() {
+            if (player && typeof player.playVideo === 'function') {
+                document.getElementById("player").style.display = "block";
+                player.playVideo();
+                // Change button text to indicate playing
+                document.getElementById('musicBtn').innerText = '🎵 กำลังเล่น...';
+                document.getElementById('musicBtn').style.opacity = '0.7';
+                document.getElementById('musicBtn').disabled = true;
+            } else {
+                console.log("Player not ready yet");
+            }
+        }
+
+        // 4. MODAL LOGIC
+        function showHug() {
+            document.getElementById('hugModal').classList.add('active');
+        }
+
+        function closeHug() {
+            document.getElementById('hugModal').classList.remove('active');
+        }
+
+    </script>
+</body>
+</html>
